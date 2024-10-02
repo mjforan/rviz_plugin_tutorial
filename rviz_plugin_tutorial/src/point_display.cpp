@@ -31,6 +31,7 @@
 #include <rviz_plugin_tutorial/point_display.hpp>
 #include <rviz_common/properties/parse_color.hpp>
 #include <rviz_common/logging.hpp>
+#include <std_msgs/msg/string.hpp>
 
 namespace rviz_plugin_tutorial
 {
@@ -45,7 +46,14 @@ void PointDisplay::onInitialize()
 
   color_property_ = std::make_unique<rviz_common::properties::ColorProperty>(
       "Point Color", QColor(36, 64, 142), "Color to draw the point.", this, SLOT(updateStyle()));
+  ros_topic_property_2_ = std::make_unique<rviz_common::properties::RosTopicProperty>(
+      "Topic Property 2", "", QString::fromStdString(rosidl_generator_traits::name<std_msgs::msg::String>()), "string topic", this, SLOT(subscribe()));
   updateStyle();
+}
+
+void PointDisplay::subscribe(){
+  if (ros_topic_property_2_->getTopicStd().empty()) return;
+  RVIZ_COMMON_LOG_INFO_STREAM("subscribing to topic: "<<ros_topic_property_2_->getTopicStd());
 }
 
 void PointDisplay::processMessage(const rviz_plugin_tutorial_msgs::msg::Point2D::ConstSharedPtr msg)

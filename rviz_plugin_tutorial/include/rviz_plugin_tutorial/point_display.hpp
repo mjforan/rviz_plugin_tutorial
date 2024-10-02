@@ -35,6 +35,7 @@
 
 #include <rviz_common/message_filter_display.hpp>
 #include <rviz_common/properties/color_property.hpp>
+#include <rviz_common/properties/ros_topic_property.hpp>
 #include <rviz_plugin_tutorial_msgs/msg/point2_d.hpp>
 #include <rviz_rendering/objects/shape.hpp>
 
@@ -47,6 +48,7 @@ class PointDisplay
 
 private Q_SLOTS:
   void updateStyle();
+  void subscribe();
 
 protected:
   void onInitialize() override;
@@ -55,6 +57,7 @@ protected:
 
   std::unique_ptr<rviz_rendering::Shape> point_shape_;
   std::unique_ptr<rviz_common::properties::ColorProperty> color_property_;
+  std::unique_ptr<rviz_common::properties::RosTopicProperty> ros_topic_property_2_;
 };
 }  // namespace rviz_plugin_tutorial
 
