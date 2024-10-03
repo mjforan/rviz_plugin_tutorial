@@ -48,7 +48,7 @@ class PointDisplay
 
 private Q_SLOTS:
   void updateStyle();
-  void subscribe();
+  void updateTopic();
 
 protected:
   void onInitialize() override;
